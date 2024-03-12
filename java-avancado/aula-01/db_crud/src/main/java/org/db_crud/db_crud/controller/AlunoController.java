@@ -1,15 +1,15 @@
 package org.db_crud.db_crud.controller;
 
 import org.db_crud.db_crud.controller.dto.AlunoDTO;
+import org.db_crud.db_crud.controller.form.AlunoForm;
 import org.db_crud.db_crud.model.Aluno;
 import org.db_crud.db_crud.repository.AlunoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +35,7 @@ public class AlunoController {
         return listaAlunoDTO;
     }
 
+    @GetMapping("/{id}")
     public ResponseEntity<?> listaAlunosId(@PathVariable Integer id){
 
         if (id == null){
@@ -55,6 +56,21 @@ public class AlunoController {
 
         }
 
+    }
+
+    @PostMapping
+    public ResponseEntity<AlunoDTO> inserir(
+            @RequestBody AlunoForm AF,
+            UriComponentsBuilder UCB
+            ){
+
+        Aluno aluno = AF.criaAluno();
+        alunoRepository.save(aluno);
+        AlunoDTO alunoDTO = new AlunoDTO(aluno);
+        UCB.path("/aluno/{id}");
+        URI uri = UCB.buildAndExpand(aluno.getMatricula()).toUri();
+
+        return ResponseEntity.created(uri).body(alunoDTO);
     }
 
 }
