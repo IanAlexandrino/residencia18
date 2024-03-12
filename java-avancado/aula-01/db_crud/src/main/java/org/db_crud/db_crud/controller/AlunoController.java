@@ -73,4 +73,36 @@ public class AlunoController {
         return ResponseEntity.created(uri).body(alunoDTO);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateAluno(
+            @PathVariable Integer id,
+            @RequestBody AlunoForm AF
+    ){
+
+        if (id == null){
+
+            ResponseEntity.badRequest().build();
+
+        }
+
+        try {
+
+            Aluno aluno = alunoRepository.getReferenceById(id);
+            aluno.setNome(AF.getNome());
+            aluno.setCpf(AF.getCpf());
+            aluno.setCurso(AF.getCurso());
+            alunoRepository.save(aluno);
+            AlunoDTO alunoDTO = new AlunoDTO(aluno);
+
+            return ResponseEntity.ok(alunoDTO);
+
+        } catch (Exception e){
+
+            return ResponseEntity.notFound().build();
+
+        }
+
+
+    }
+
 }
