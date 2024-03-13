@@ -105,4 +105,29 @@ public class AlunoController {
 
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deletaAluno(@PathVariable Integer id){
+
+        if (id == null){
+
+            return ResponseEntity.badRequest().build();
+
+        }
+
+        try {
+
+            Aluno aluno = alunoRepository.getReferenceById(id);
+            AlunoDTO alunoDTO = new AlunoDTO(aluno);
+            alunoRepository.delete(aluno);
+
+            return ResponseEntity.ok(alunoDTO);
+
+        } catch (Exception e){
+
+            return ResponseEntity.notFound().build();
+
+        }
+
+    }
+
 }
