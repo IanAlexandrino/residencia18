@@ -1,8 +1,9 @@
 package org.controle_empregado_projeto.controle_empregado_projeto.model;
 
-import org.hibernate.mapping.Set;
+import jakarta.persistence.*;
 
-import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "EMPLOYEE")
