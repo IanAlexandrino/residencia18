@@ -12,7 +12,7 @@ public class ControleEmpregadoProjetoApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ControleEmpregadoProjetoApplication.class, args);
-		log.info("Application started...");
+		log.info("Aplicaçâo iniciada...");
 	}
 
 }

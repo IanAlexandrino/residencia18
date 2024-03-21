@@ -1,9 +1,12 @@
 package org.controle_empregado_projeto.controle_empregado_projeto.controller;
 
+import org.controle_empregado_projeto.controle_empregado_projeto.ControleEmpregadoProjetoApplication;
 import org.controle_empregado_projeto.controle_empregado_projeto.model.Employee;
 import org.controle_empregado_projeto.controle_empregado_projeto.model.Project;
 import org.controle_empregado_projeto.controle_empregado_projeto.repository.EmployeeRepository;
 import org.controle_empregado_projeto.controle_empregado_projeto.repository.ProjectRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +16,9 @@ import java.util.*;
 @RequestMapping("/api/employee")
 public class EmployeeController {
 
+    public static final Logger log = LoggerFactory.getLogger(ControleEmpregadoProjetoApplication.class);
+
+
     @Autowired
     private EmployeeRepository employeeRepository;
 
@@ -21,6 +27,9 @@ public class EmployeeController {
 
     @PostMapping(value = "/createEmployee")
     public String createEmployee(@RequestBody Employee entity) {
+        if (entity == null){
+            log.error("Employee nâo contém nenhum dado!");
+        }
         System.out.println("\nCreate a new Employee." + "\n");
 
         // create a new Employee
@@ -104,6 +113,9 @@ public class EmployeeController {
 
     @GetMapping(value = "/getEmployee/{empId}")
     public String getEmployee(@PathVariable(name = "empId") Integer empId) {
+        if (empId == 0){
+            log.error("Id inválido!");
+        }
         System.out.println("Fetch Employee and Project details.");
 
         // get Employee details
