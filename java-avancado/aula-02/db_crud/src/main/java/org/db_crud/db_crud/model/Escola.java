@@ -1,9 +1,8 @@
 package org.db_crud.db_crud.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class Escola {
@@ -12,14 +11,17 @@ public class Escola {
     private Integer id;
     private String nome;
     private String localizacao;
-    
+    @OneToMany(mappedBy = "escola", cascade = CascadeType.ALL)
+    private List<Aluno> alunos;
+
     public Escola() {
     }
 
-    public Escola(Integer id, String nome, String localizacao) {
+    public Escola(Integer id, String nome, String localizacao, List<Aluno> alunos) {
         this.id = id;
         this.nome = nome;
         this.localizacao = localizacao;
+        this.alunos = alunos;
     }
 
     public Integer getId() {
@@ -44,5 +46,13 @@ public class Escola {
 
     public void setLocalizacao(String localizacao) {
         this.localizacao = localizacao;
+    }
+
+    public List<Aluno> getAlunos() {
+        return alunos;
+    }
+
+    public void setAlunos(List<Aluno> alunos) {
+        this.alunos = alunos;
     }
 }

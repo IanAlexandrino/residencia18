@@ -1,9 +1,6 @@
 package org.db_crud.db_crud.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Aluno{
@@ -13,15 +10,18 @@ public class Aluno{
     private String nome;
     private String cpf;
     private String curso;
+    @ManyToOne @JoinColumn(name = "escola_id", nullable = false)
+    private Escola escola;
 
     public Aluno() {
     }
 
-    public Aluno(Integer matricula, String nome, String cpf, String curso) {
+    public Aluno(Integer matricula, String nome, String cpf, String curso, Escola escola) {
         this.matricula = matricula;
         this.nome = nome;
         this.cpf = cpf;
         this.curso = curso;
+        this.escola = escola;
     }
 
     public Integer getMatricula() {
@@ -54,5 +54,13 @@ public class Aluno{
 
     public void setCurso(String curso) {
         this.curso = curso;
+    }
+
+    public Escola getEscola() {
+        return escola;
+    }
+
+    public void setEscola(Escola escola) {
+        this.escola = escola;
     }
 }

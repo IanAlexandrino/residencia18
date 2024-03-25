@@ -1,6 +1,7 @@
 package org.db_crud.db_crud.controller.form;
 
 import org.db_crud.db_crud.model.Aluno;
+import org.db_crud.db_crud.model.Escola;
 
 public class AlunoForm {
 
@@ -42,6 +43,6 @@ public class AlunoForm {
     }
 
     public Aluno criaAluno(){
-        return new Aluno(null, nome, cpf, curso);
+        return new Aluno(null, nome, cpf, curso, new Escola());
     }
 }
