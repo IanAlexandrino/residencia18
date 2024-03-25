@@ -9,10 +9,10 @@ import jakarta.persistence.Id;
 public class Escola {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Integer id;
-    public String nome;
-    public String localizacao;
-
+    private Integer id;
+    private String nome;
+    private String localizacao;
+    
     public Escola() {
     }
 
