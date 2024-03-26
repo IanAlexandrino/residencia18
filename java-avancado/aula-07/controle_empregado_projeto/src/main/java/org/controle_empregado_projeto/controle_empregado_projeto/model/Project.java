@@ -5,14 +5,11 @@ import lombok.*;
 
 import java.util.Set;
 
-@Getter
-@Setter
-@Entity
-@Table(name = "PROJECT")
-@ToString
-@EqualsAndHashCode
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
+@Table(name = "PROJECT")
 public class Project {
 
     @Id
