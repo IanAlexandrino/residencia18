@@ -8,24 +8,24 @@ Repositório dedicado para postagem das práticas orientadas (POs), das atividad
 
 O repositório contém 5 branchs que abrangem desde os módulos introdutórios até o módulo recente, o avançado. Cada branch com suas respectivas atividades/provas desenvolvidas durante o módulo em si.
 
-#### main
+### main
 
 ![main](https://github.com/IanAlexandrino/residencia18/blob/main/imgs_repo/Captura%20de%20tela%202024-03-26%20095133.png)
 
 A branch main contém basicamente o conteúdo do módulo avançado, com tudo das trilhas de JAVA e FRONTEND.
 
-#### TIC18_DOTNET
+### TIC18_DOTNET
 
 ![main](https://github.com/IanAlexandrino/residencia18/blob/main/imgs_repo/Captura%20de%20tela%202024-03-26%20095212.png)
 
-#### TIC18_FRONTEND
+### TIC18_FRONTEND
 
 ![main](https://github.com/IanAlexandrino/residencia18/blob/main/imgs_repo/Captura%20de%20tela%202024-03-26%20095228.png)
 
-#### TIC18_JAVA
+### TIC18_JAVA
 
 ![main](https://github.com/IanAlexandrino/residencia18/blob/main/imgs_repo/Captura%20de%20tela%202024-03-26%20095247.png)
 
-#### TIC18_PYTHON
+### TIC18_PYTHON
 
 ![main](https://github.com/IanAlexandrino/residencia18/blob/main/imgs_repo/Captura%20de%20tela%202024-03-26%20095302.png)
