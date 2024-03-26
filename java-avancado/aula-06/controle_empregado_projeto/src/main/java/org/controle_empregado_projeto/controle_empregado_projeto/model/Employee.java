@@ -5,6 +5,8 @@ import lombok.*;
 
 import java.util.Set;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "EMPLOYEE")
 @ToString
@@ -16,30 +18,26 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    @Getter
-    @Setter
     private int id;
 
     @Column(name = "name")
-    @Getter
-    @Setter
     private String name;
 
     @Column(name = "email")
-    @Getter
-    @Setter
     private String email;
 
     @Column(name = "technicalSkill")
-    @Getter
-    @Setter
     private String technicalSkill;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
     @JoinTable(name = "EMPLOYEE_PROJECT_MAPPING", joinColumns = @JoinColumn(name = "employee_id"),
             inverseJoinColumns = @JoinColumn(name = "project_id"))
-    @Getter
-    @Setter
     private Set<Project> projects;
+
+    public Employee(String name, String email, String technicalSkill) {
+        this.name = name;
+        this.email = email;
+        this.technicalSkill = technicalSkill;
+    }
 
 }

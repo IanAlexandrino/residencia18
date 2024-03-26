@@ -1,12 +1,20 @@
 package org.controle_empregado_projeto.controle_empregado_projeto.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "PROJECT")
+@ToString
+@EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
 public class Project {
 
     @Id
@@ -25,8 +33,6 @@ public class Project {
             inverseJoinColumns = @JoinColumn(name = "employee_id"))
     private Set<Employee> employees;
 
-    public Project() {}
-
     public Project(String projectName, String technologyUsed) {
         this.projectName = projectName;
         this.technologyUsed = technologyUsed;
@@ -44,12 +50,6 @@ public class Project {
     public Set<Employee> getEmployees() { return employees; }
     public void setEmployees(Set<Employee> employees) {
         this.employees = employees;
-    }
-
-    @Override
-    public String toString() {
-        return "Project [id=" + id + ", projectName=" + projectName
-                + ", technologyUsed=" + technologyUsed + "]";
     }
 
 }
