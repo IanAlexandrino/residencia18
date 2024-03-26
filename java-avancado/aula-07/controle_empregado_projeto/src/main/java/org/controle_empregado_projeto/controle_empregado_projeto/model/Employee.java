@@ -1,6 +1,8 @@
 package org.controle_empregado_projeto.controle_empregado_projeto.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.Set;
@@ -17,12 +19,15 @@ public class Employee {
     @Column(name = "ID")
     private int id;
 
+    @NotNull(message = "Name can't be null")
     @Column(name = "name")
     private String name;
 
+    @Email
     @Column(name = "email")
     private String email;
 
+    @NotNull(message = "Technical skill can't be null")
     @Column(name = "technicalSkill")
     private String technicalSkill;
 

@@ -2,6 +2,8 @@ package org.controle_empregado_projeto.controle_empregado_projeto.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import jakarta.validation.constraints.NotNull;
+
 
 import java.util.Set;
 
@@ -17,9 +19,11 @@ public class Project {
     @Column(name = "ID")
     private int id;
 
+    @NotNull(message = "Name can't be null")
     @Column(name = "projectName")
     private String projectName;
 
+    @NotNull(message = "Technology used can't be null")
     @Column(name = "technologyUsed")
     private String technologyUsed;
 
