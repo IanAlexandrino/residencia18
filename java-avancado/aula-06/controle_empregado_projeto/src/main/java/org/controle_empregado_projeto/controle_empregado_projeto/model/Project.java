@@ -1,14 +1,12 @@
 package org.controle_empregado_projeto.controle_empregado_projeto.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
-import java.util.HashSet;
 import java.util.Set;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "PROJECT")
 @ToString
@@ -36,20 +34,6 @@ public class Project {
     public Project(String projectName, String technologyUsed) {
         this.projectName = projectName;
         this.technologyUsed = technologyUsed;
-    }
-
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
-
-    public String getProjectName() { return projectName; }
-    public void setProjectName(String projectName) { this.projectName = projectName; }
-
-    public String getTechnologyUsed() { return technologyUsed; }
-    public void setTechnologyUsed(String technologyUsed) { this.technologyUsed = technologyUsed; }
-
-    public Set<Employee> getEmployees() { return employees; }
-    public void setEmployees(Set<Employee> employees) {
-        this.employees = employees;
     }
 
 }
