@@ -11,6 +11,7 @@ import axios from 'axios';
 export class CountryComponent implements OnInit {
 
   country: any; // Para armazenar o primeiro país
+  camposDoForm: any;
 
   constructor() { }
 
@@ -34,7 +35,15 @@ export class CountryComponent implements OnInit {
     // Aqui você pode transformar os dados do país conforme necessário
     // Por exemplo, reorganizar propriedades, formatar valores, etc.
     // Para este exemplo, vamos apenas exibir o nome do país no console
-    console.log('Nome do país:', this.country.name);
+    //console.log('Nome do país:', this.country.name);
+    //console.log('Nome do país:', typeof(this.country));
+    console.log('Nome do país:', this.country);
+
+    this.camposDoForm = {
+      tipo: typeof(this.country),
+      nome: this.country.name,
+      rotulo: this.country.
+    };
   }
 
 }
