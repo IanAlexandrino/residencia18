@@ -1,1 +1,7 @@
-<p>country works!</p>
+<form>
+    <div *ngFor="let campo of camposDoForm">
+      <label>{{ campo.rotulo }}</label>
+      <input type="{{ campo.tipo }}" [(ngModel)]="dados[campo.nome]" name="{{ campo.nome }}" />
+    </div>
+    <button type="submit">Enviar</button>
+  </form>
