@@ -17,12 +17,12 @@ public class EmployeeServiceImpl implements EmployeeService{
     private EmployeeRepository employeeRepository;
 
     @Override
-    public Employee fillEmployee(Employee employee, Project project,Set<Employee> employees, Set<Project> projects) {
+    public Employee fillEmployee() {
         Faker faker = new Faker();
-        employee = new Employee();
-        project = new Project();
-        employees = new HashSet<>();
-        projects = new HashSet<>();
+        Employee employee = new Employee();
+        Project project = new Project();
+        Set<Employee> employees = new HashSet<>();
+        Set<Project> projects = new HashSet<>();
 
         employee.setName(faker.name().fullName());
         employee.setEmail(faker.internet().emailAddress());

@@ -5,6 +5,7 @@ import org.controle_empregado_projeto.controle_empregado_projeto.model.Employee;
 import org.controle_empregado_projeto.controle_empregado_projeto.model.Project;
 import org.controle_empregado_projeto.controle_empregado_projeto.repository.EmployeeRepository;
 import org.controle_empregado_projeto.controle_empregado_projeto.repository.ProjectRepository;
+import org.controle_empregado_projeto.controle_empregado_projeto.service.EmployeeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ public class EmployeeController {
 
     @Autowired
     private EmployeeRepository employeeRepository;
+    private EmployeeService employeeService;
 
     @Autowired
     private ProjectRepository projectRepository;
@@ -33,8 +35,7 @@ public class EmployeeController {
         System.out.println("\nCreate a new Employee." + "\n");
 
         // create a new Employee
-        Employee employee = new Employee(entity.getName(), entity.getEmail(),
-                entity.getTechnicalSkill());
+        Employee employee = employeeService.fillEmployee();
 
         // save Employee
         employee = employeeRepository.save(employee);
