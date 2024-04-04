@@ -11,6 +11,15 @@ export const routes: Routes = [
         component: MenuComponent
     },
     {
-
-    }
+        path: 'componente-1',
+        component: Componente1Component
+    },
+    {
+        path: 'componente-2',
+        component: Componente2Component
+    },
+    {
+        path: 'componente-3',
+        component: Componente3Component
+    },
 ];
