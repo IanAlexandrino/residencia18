@@ -8,6 +8,6 @@ import java.util.Set;
 
 public interface EmployeeService {
 
-    Employee fillEmployee();
+    Employee fillEmployeeAndSave();
 
 }
