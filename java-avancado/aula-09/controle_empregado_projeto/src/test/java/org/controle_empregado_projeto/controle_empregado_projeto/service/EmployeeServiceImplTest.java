@@ -29,24 +29,6 @@ public class EmployeeServiceImplTest {
 
     private Employee employee;
 
-    @BeforeEach
-    void mockEmployee(){
-        Faker faker = new Faker();
-        employee = new Employee();
-        Project project = new Project();
-        Set<Employee> employees = new HashSet<>();
-        Set<Project> projects = new HashSet<>();
-
-        employee.setName(faker.name().fullName());
-        employee.setEmail(faker.internet().emailAddress());
-        employee.setTechnicalSkill(faker.job().position());
-        employee.setProjects(projects);
-
-        project.setProjectName(faker.company().name());
-        project.setTechnologyUsed(faker.company().industry());
-        project.setEmployees(employees);
-    }
-
     @Test
     void shouldCreateFakeEmployee(){
 
