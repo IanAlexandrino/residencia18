@@ -42,4 +42,11 @@ public class Employee {
         this.technicalSkill = technicalSkill;
     }
 
+    public Employee(Employee employee){
+        this.name = employee.getName();
+        this.email = employee.getEmail();
+        this.technicalSkill = employee.getTechnicalSkill();
+        this.projects = employee.getProjects();
+    }
+
 }

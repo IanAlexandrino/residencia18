@@ -7,7 +7,9 @@ import org.controle_empregado_projeto.controle_empregado_projeto.repository.Empl
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -36,5 +38,40 @@ public class EmployeeServiceImpl implements EmployeeService{
         employeeRepository.save(employee);
 
         return employee;
+    }
+
+    @Override
+    public Employee create(Employee employee){
+        employeeRepository.save(employee);
+        return employee;
+    }
+
+    @Override
+    public Employee delete(Integer empId){
+        Employee employee = employeeRepository.getReferenceById(empId);
+        employeeRepository.delete(employee);
+        return employee;
+    }
+
+    @Override
+    public ArrayList<Employee> getAll(){
+        return (ArrayList<Employee>) employeeRepository.findAll();
+    }
+
+    @Override
+    public Employee getById(Integer empId){
+        return employeeRepository.getReferenceById(empId);
+    }
+
+    @Override
+    public Employee update(Integer empId, Employee employee_body){
+        Employee employee = employeeRepository.getReferenceById(empId);
+        employee.setName(employee_body.getName());
+        employee.setEmail(employee_body.getEmail());
+        employee.setTechnicalSkill(employee_body.getTechnicalSkill());
+        employee.setProjects(employee_body.getProjects());
+        employeeRepository.save(employee);
+
+        return employee_body;
     }
 }
