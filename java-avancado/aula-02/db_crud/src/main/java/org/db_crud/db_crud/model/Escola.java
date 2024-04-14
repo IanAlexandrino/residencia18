@@ -2,6 +2,7 @@ package org.db_crud.db_crud.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -11,17 +12,16 @@ public class Escola {
     private Integer id;
     private String nome;
     private String localizacao;
-    @OneToMany(mappedBy = "escola", cascade = CascadeType.ALL)
-    private List<Aluno> alunos;
+    @OneToMany
+    private List<Aluno> alunos = new ArrayList<>();
 
     public Escola() {
     }
 
-    public Escola(Integer id, String nome, String localizacao, List<Aluno> alunos) {
+    public Escola(Integer id, String nome, String localizacao) {
         this.id = id;
         this.nome = nome;
         this.localizacao = localizacao;
-        this.alunos = alunos;
     }
 
     public Integer getId() {
@@ -52,7 +52,7 @@ public class Escola {
         return alunos;
     }
 
-    public void setAlunos(List<Aluno> alunos) {
-        this.alunos = alunos;
+    public void setAlunos(Aluno aluno) {
+        this.alunos.add(aluno);
     }
 }

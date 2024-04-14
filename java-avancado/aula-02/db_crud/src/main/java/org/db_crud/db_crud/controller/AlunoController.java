@@ -3,7 +3,9 @@ package org.db_crud.db_crud.controller;
 import org.db_crud.db_crud.controller.dto.AlunoDTO;
 import org.db_crud.db_crud.controller.form.AlunoForm;
 import org.db_crud.db_crud.model.Aluno;
+import org.db_crud.db_crud.model.Escola;
 import org.db_crud.db_crud.repository.AlunoRepository;
+import org.db_crud.db_crud.repository.EscolaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,14 +16,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/aluno/")
+@RequestMapping("/alunos/")
 public class AlunoController {
 
     @Autowired
     private AlunoRepository alunoRepository;
 
+    @Autowired
+    private EscolaRepository escolaRepository;
+
     @GetMapping
-    public List<AlunoDTO> retornaAlunos(String nome){
+    public ResponseEntity<?> retornaAlunos(){
 
         List<Aluno> listaAluno = (ArrayList<Aluno>) alunoRepository.findAll();
         List<AlunoDTO> listaAlunoDTO = new ArrayList<AlunoDTO>();
@@ -32,7 +37,7 @@ public class AlunoController {
 
         }
 
-        return listaAlunoDTO;
+        return ResponseEntity.ok(listaAlunoDTO);
     }
 
     @GetMapping("/{id}")
@@ -67,10 +72,39 @@ public class AlunoController {
         Aluno aluno = AF.criaAluno();
         alunoRepository.save(aluno);
         AlunoDTO alunoDTO = new AlunoDTO(aluno);
-        UCB.path("/aluno/{id}");
+        UCB.path("/alunos/{id}");
         URI uri = UCB.buildAndExpand(aluno.getMatricula()).toUri();
 
         return ResponseEntity.created(uri).body(alunoDTO);
+    }
+
+    @PostMapping("/{alunoId}/atribui/{escolaId}")
+    public ResponseEntity<?> atribuiAlunoEmEscola(
+            @PathVariable Integer alunoId,
+            @PathVariable Integer escolaId
+    ){
+
+        if (alunoId == null || escolaId == null){
+
+            return ResponseEntity.badRequest().build();
+
+        }
+
+        try{
+
+            Escola escola = escolaRepository.getReferenceById(escolaId);
+            Aluno aluno = alunoRepository.getReferenceById(alunoId);
+
+            escola.setAlunos(aluno);
+            escolaRepository.save(escola);
+
+            return ResponseEntity.ok().build();
+
+        } catch (Exception e){
+
+            return ResponseEntity.notFound().build();
+
+        }
     }
 
     @PutMapping("/{id}")
@@ -101,8 +135,6 @@ public class AlunoController {
             return ResponseEntity.notFound().build();
 
         }
-
-
     }
 
     @DeleteMapping("/{id}")

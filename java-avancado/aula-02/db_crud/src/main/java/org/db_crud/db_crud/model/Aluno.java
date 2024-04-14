@@ -10,7 +10,7 @@ public class Aluno{
     private String nome;
     private String cpf;
     private String curso;
-    @ManyToOne @JoinColumn(name = "escola_id", nullable = false)
+    @ManyToOne
     private Escola escola;
 
     public Aluno() {
