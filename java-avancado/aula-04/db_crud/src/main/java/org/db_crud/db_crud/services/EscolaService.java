@@ -36,6 +36,7 @@ public class EscolaService {
         return this.escolaRepository.save(novaEscola);
     }
 
+    @Transactional
     public void delete(Integer id){
         findById(id);
         try {
