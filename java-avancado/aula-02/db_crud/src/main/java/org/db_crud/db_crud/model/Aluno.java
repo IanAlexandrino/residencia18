@@ -2,15 +2,30 @@ package org.db_crud.db_crud.model;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
+@Table(name = Aluno.TABLE_NAME)
 public class Aluno{
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public static final String TABLE_NAME = "aluno";
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "matricula", unique = true)
     private Integer matricula;
+
+    @Column(name = "nome", unique = true, nullable = false)
     private String nome;
+
+    @Column(name = "cpf", unique = true, nullable = false)
     private String cpf;
+
+    @Column(name = "curso", nullable = false)
     private String curso;
+
     @ManyToOne
+    @JoinColumn(name = "escola_id", nullable = false)
     private Escola escola;
 
     public Aluno() {
@@ -62,5 +77,27 @@ public class Aluno{
 
     public void setEscola(Escola escola) {
         this.escola = escola;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Aluno other = (Aluno) o;
+        if (this.matricula != null)
+            if (other.matricula != null)
+                return false;
+            else if (!this.matricula.equals(other.matricula))
+                return false;
+        return Objects.equals(this.matricula, other.matricula) && Objects.equals(this.nome, other.nome) && Objects.equals(this.cpf, other.cpf)
+                && Objects.equals(this.curso, other.curso) && Objects.equals(this.escola, other.escola);
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.matricula == null) ? 0 : this.matricula.hashCode());
+        return result;
     }
 }

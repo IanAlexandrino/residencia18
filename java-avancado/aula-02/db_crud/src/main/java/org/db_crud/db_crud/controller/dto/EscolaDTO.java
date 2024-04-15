@@ -28,7 +28,7 @@ public class EscolaDTO {
         this.Id = escola.getId();
         this.Nome = escola.getNome();
         this.Localizacao = escola.getLocalizacao();
-        this.alunos = escola.getAlunos().stream().map(x -> new AlunoDTO(x)).collect(Collectors.toList());
+        this.alunos.addAll(escola.getAlunos().stream().map(AlunoDTO::new).toList());
 
     }
 

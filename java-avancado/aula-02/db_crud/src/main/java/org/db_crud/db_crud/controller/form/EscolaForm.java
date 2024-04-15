@@ -1,6 +1,5 @@
 package org.db_crud.db_crud.controller.form;
 
-import org.db_crud.db_crud.model.Aluno;
 import org.db_crud.db_crud.model.Escola;
 
 public class EscolaForm {

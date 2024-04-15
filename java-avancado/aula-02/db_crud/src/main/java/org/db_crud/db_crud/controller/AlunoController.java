@@ -78,13 +78,14 @@ public class AlunoController {
         return ResponseEntity.created(uri).body(alunoDTO);
     }
 
-    @PostMapping("/{alunoId}/atribui/{escolaId}")
-    public ResponseEntity<?> atribuiAlunoEmEscola(
-            @PathVariable Integer alunoId,
-            @PathVariable Integer escolaId
+    @PostMapping("/atribui/{escolaId}")
+    public ResponseEntity<AlunoDTO> insereAlunoComEscola(
+            @RequestBody AlunoForm alunoForm,
+            @PathVariable Integer escolaId,
+            UriComponentsBuilder UCB
     ){
 
-        if (alunoId == null || escolaId == null){
+        if (escolaId == null){
 
             return ResponseEntity.badRequest().build();
 
@@ -93,12 +94,18 @@ public class AlunoController {
         try{
 
             Escola escola = escolaRepository.getReferenceById(escolaId);
-            Aluno aluno = alunoRepository.getReferenceById(alunoId);
+
+            Aluno aluno = alunoForm.criaAluno();
+            aluno.setEscola(escola);
+            alunoRepository.save(aluno);
+            AlunoDTO alunoDTO = new AlunoDTO(aluno);
+            UCB.path("/alunos/{id}");
+            URI uri = UCB.buildAndExpand(aluno.getMatricula()).toUri();
 
             escola.setAlunos(aluno);
             escolaRepository.save(escola);
 
-            return ResponseEntity.ok().build();
+            return ResponseEntity.created(uri).body(alunoDTO);
 
         } catch (Exception e){
 

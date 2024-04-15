@@ -1,7 +1,7 @@
 package org.db_crud.db_crud.controller;
 
-import org.db_crud.db_crud.controller.dto.AlunoDTO;
 import org.db_crud.db_crud.controller.dto.EscolaDTO;
+import org.db_crud.db_crud.controller.form.AlunoForm;
 import org.db_crud.db_crud.controller.form.EscolaForm;
 import org.db_crud.db_crud.model.Aluno;
 import org.db_crud.db_crud.model.Escola;
@@ -27,19 +27,11 @@ public class EscolaController {
     private AlunoRepository alunoRepository;
 
     @GetMapping
-    public ResponseEntity<List<EscolaDTO>> retornaEscolas(){
+    public ResponseEntity<List<Escola>> retornaEscolas(){
 
         List<Escola> listaEscolas = (ArrayList<Escola>) escolaRepository.findAll();
-        List<EscolaDTO> listaEscolasDTO = new ArrayList<EscolaDTO>();
 
-        for (Escola escola : listaEscolas){
-
-            EscolaDTO escolaDTO = new EscolaDTO(escola);
-            listaEscolasDTO.add(escolaDTO);
-
-        }
-
-        return ResponseEntity.ok(listaEscolasDTO);
+        return ResponseEntity.ok(listaEscolas);
     }
 
     @GetMapping("/{id}")
@@ -78,13 +70,13 @@ public class EscolaController {
         return ResponseEntity.created(uri).body(escolaDTO);
     }
 
-    @PostMapping("/{escolaId}/atribui/{alunoId}")
+    @PostMapping("/{escolaId}/adiciona-aluno")
     public ResponseEntity<?> atribuiEscolaEmAluno(
             @PathVariable Integer escolaId,
-            @PathVariable Integer alunoId
-    ){
+            @RequestBody AlunoForm alunoForm
+            ){
 
-        if (alunoId == null || escolaId == null){
+        if (escolaId == null){
 
             return ResponseEntity.badRequest().build();
 
@@ -93,10 +85,13 @@ public class EscolaController {
         try{
 
             Escola escola = escolaRepository.getReferenceById(escolaId);
-            Aluno aluno = alunoRepository.getReferenceById(alunoId);
+            Aluno aluno = alunoForm.criaAluno();
+            Escola escolaAluno = new Escola(escola.getId(), escola.getNome(), escola.getLocalizacao());
+            aluno.setEscola(escolaAluno);
+            escola.setAlunos(aluno);
 
-            aluno.setEscola(escola);
             alunoRepository.save(aluno);
+            escolaRepository.save(escola);
 
             return ResponseEntity.ok().build();
 
