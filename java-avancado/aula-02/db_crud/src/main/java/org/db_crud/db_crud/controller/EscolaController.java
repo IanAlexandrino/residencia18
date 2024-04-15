@@ -37,7 +37,6 @@ public class EscolaController {
             @PathVariable Integer id,
             @RequestBody Escola escola
     ){
-
         escola.setId(id);
         this.escolaService.update(escola);
         return ResponseEntity.noContent().build();
