@@ -9,6 +9,11 @@ Um simples crud de alunos e escolas.
 Retorna Aluno por id
 http://localhost:8080/alunos/2
 
+### GET
+
+Retorna Alunos matriculados em determinada Escola de acordo com o id da mesma
+http://localhost:8080/alunos/escola/2
+
 ### POST
 
 Insere um Aluno
