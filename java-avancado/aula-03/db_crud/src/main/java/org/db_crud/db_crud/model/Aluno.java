@@ -84,13 +84,7 @@ public class Aluno{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Aluno other = (Aluno) o;
-        if (this.matricula != null)
-            if (other.matricula != null)
-                return false;
-            else if (!this.matricula.equals(other.matricula))
-                return false;
-        return Objects.equals(this.matricula, other.matricula) && Objects.equals(this.nome, other.nome) && Objects.equals(this.cpf, other.cpf)
-                && Objects.equals(this.curso, other.curso) && Objects.equals(this.escola, other.escola);
+        return Objects.equals(this.matricula, other.matricula);
     }
 
     @Override

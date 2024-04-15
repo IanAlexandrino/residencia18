@@ -74,12 +74,7 @@ public class Escola {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Escola other = (Escola) o;
-        if (this.id != null)
-            if (other.id != null)
-                return false;
-            else if (!this.id.equals(other.id))
-                return false;
-        return Objects.equals(this.id, other.id) && Objects.equals(this.nome, other.nome) && Objects.equals(this.localizacao, other.localizacao);
+        return Objects.equals(this.id, other.id);
     }
 
     @Override
