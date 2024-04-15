@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/alunos")
@@ -48,4 +49,9 @@ public class AlunoController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/escola/{id}")
+    public ResponseEntity<List<Aluno>> findAllByEscolaId(@PathVariable Integer id){
+        List<Aluno> alunos = alunoService.findAllByEscolaId(id);
+        return ResponseEntity.ok().body(alunos);
+    }
 }
