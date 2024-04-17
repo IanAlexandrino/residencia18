@@ -1,6 +1,6 @@
-package org.db_crud.db_crud.repository;
+package org.db_crud.db_crud.repositories;
 
-import org.db_crud.db_crud.model.Aluno;
+import org.db_crud.db_crud.models.Aluno;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,7 +1,7 @@
 package org.db_crud.db_crud.services;
 
-import org.db_crud.db_crud.model.Escola;
-import org.db_crud.db_crud.repository.EscolaRepository;
+import org.db_crud.db_crud.models.Escola;
+import org.db_crud.db_crud.repositories.EscolaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

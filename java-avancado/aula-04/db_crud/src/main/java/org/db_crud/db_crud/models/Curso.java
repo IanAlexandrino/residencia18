@@ -1,4 +1,4 @@
-package org.db_crud.db_crud.model;
+package org.db_crud.db_crud.models;
 
 import jakarta.persistence.*;
 
