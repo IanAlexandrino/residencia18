@@ -21,8 +21,9 @@ public class Aluno{
     @Column(name = "cpf", unique = true, nullable = false)
     private String cpf;
 
-    @Column(name = "curso", nullable = false)
-    private String curso;
+    @ManyToOne
+    @JoinColumn(name = "curso_id", nullable = false)
+    private Curso curso;
 
     @ManyToOne
     @JoinColumn(name = "escola_id", nullable = false)
@@ -31,7 +32,7 @@ public class Aluno{
     public Aluno() {
     }
 
-    public Aluno(Integer matricula, String nome, String cpf, String curso, Escola escola) {
+    public Aluno(Integer matricula, String nome, String cpf, Curso curso, Escola escola) {
         this.matricula = matricula;
         this.nome = nome;
         this.cpf = cpf;
@@ -63,11 +64,11 @@ public class Aluno{
         this.cpf = cpf;
     }
 
-    public String getCurso() {
+    public Curso getCurso() {
         return curso;
     }
 
-    public void setCurso(String curso) {
+    public void setCurso(Curso curso) {
         this.curso = curso;
     }
 

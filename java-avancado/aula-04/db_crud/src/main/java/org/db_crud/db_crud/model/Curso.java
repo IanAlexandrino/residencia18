@@ -8,37 +8,35 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = Escola.TABLE_NAME)
-public class Escola {
+@Table(name = Curso.TABLE_NAME)
+public class Curso {
 
-    public static final String TABLE_NAME = "escola";
+    public static final String TABLE_NAME = "curso";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true)
     private Integer id;
 
-    @Column(name = "nome")
+    @Column(name = "nome", unique = true, nullable = false)
     private String nome;
 
-    @Column(name = "localizacao", nullable = false)
-    private String localizacao;
+    @Column(name = "conteudo", nullable = false)
+    private String conteudo;
 
-    @OneToMany(mappedBy = "escola", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "curso", fetch = FetchType.LAZY)
     private List<Aluno> alunos = new ArrayList<Aluno>();
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "escolas_cursos", joinColumns = @JoinColumn(name = "escola_fk"),
-            inverseJoinColumns = @JoinColumn(name = "curso_fk"))
-    private List<Curso> cursos;
+    @ManyToMany(mappedBy = "cursos", fetch = FetchType.LAZY)
+    private List<Escola> escolas;
 
-    public Escola() {
+    public Curso() {
     }
 
-    public Escola(Integer id, String nome, String localizacao) {
+    public Curso(Integer id, String nome, String conteudo) {
         this.id = id;
         this.nome = nome;
-        this.localizacao = localizacao;
+        this.conteudo = conteudo;
     }
 
     public Integer getId() {
@@ -57,12 +55,12 @@ public class Escola {
         this.nome = nome;
     }
 
-    public String getLocalizacao() {
-        return localizacao;
+    public String getConteudo() {
+        return conteudo;
     }
 
-    public void setLocalizacao(String localizacao) {
-        this.localizacao = localizacao;
+    public void setConteudo(String conteudo) {
+        this.conteudo = conteudo;
     }
 
     public List<Aluno> getAlunos() {
@@ -73,19 +71,19 @@ public class Escola {
         this.alunos = alunos;
     }
 
-    public List<Curso> getCursos() {
-        return cursos;
+    public List<Escola> getEscolas() {
+        return escolas;
     }
 
-    public void setCursos(List<Curso> cursos) {
-        this.cursos = cursos;
+    public void setEscolas(List<Escola> escolas) {
+        this.escolas = escolas;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Escola other = (Escola) o;
+        Curso other = (Curso) o;
         return Objects.equals(this.id, other.id);
     }
 
