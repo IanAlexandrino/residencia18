@@ -1,6 +1,7 @@
 package org.db_crud.db_crud.services;
 
 import org.db_crud.db_crud.models.Aluno;
+import org.db_crud.db_crud.models.Curso;
 import org.db_crud.db_crud.models.Escola;
 import org.db_crud.db_crud.repositories.AlunoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ public class AlunoService {
     private AlunoRepository alunoRepository;
 
     @Autowired
+    private CursoService cursoService;
+
+    @Autowired
     private EscolaService escolaService;
 
     public Aluno findByMatricula(Integer matricula){
@@ -26,14 +30,20 @@ public class AlunoService {
         ));
     }
 
+    public List<Aluno> findAllByCursoId(Integer cursoId){
+        return this.alunoRepository.findByCurso_Id(cursoId);
+    }
+
     public List<Aluno> findAllByEscolaId(Integer escolaId){
         return this.alunoRepository.findByEscola_Id(escolaId);
     }
 
     @Transactional
     public Aluno create(Aluno aluno){
+        Curso curso = this.cursoService.findById(aluno.getCurso().getId());
         Escola escola = this.escolaService.findById(aluno.getEscola().getId());
         aluno.setMatricula(null);
+        aluno.setCurso(curso);
         aluno.setEscola(escola);
         aluno = this.alunoRepository.save(aluno);
         return aluno;
@@ -41,14 +51,15 @@ public class AlunoService {
 
     @Transactional
     public Aluno update(Aluno aluno){
-        Aluno novoAluno = findByMatricula(aluno.getMatricula());
+        Aluno novoAluno = this.findByMatricula(aluno.getMatricula());
         novoAluno.setCurso(aluno.getCurso());
+        novoAluno.setEscola(aluno.getEscola());
         return this.alunoRepository.save(novoAluno);
     }
 
     @Transactional
     public void delete(Integer matricula){
-        findByMatricula(matricula);
+        this.findByMatricula(matricula);
         try {
             this.alunoRepository.deleteById(matricula);
         } catch (Exception e) {
