@@ -1,6 +1,5 @@
 package org.db_crud.db_crud.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;

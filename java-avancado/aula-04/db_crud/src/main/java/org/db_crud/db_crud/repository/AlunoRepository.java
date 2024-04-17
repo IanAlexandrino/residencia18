@@ -11,4 +11,6 @@ public interface AlunoRepository extends JpaRepository<Aluno, Integer> {
 
     List<Aluno> findByEscola_Id (Integer id);
 
+    List<Aluno> findByCurso_Id (Integer id);
+
 }
