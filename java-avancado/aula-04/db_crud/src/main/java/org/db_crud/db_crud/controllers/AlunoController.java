@@ -1,6 +1,7 @@
 package org.db_crud.db_crud.controllers;
 
 import org.db_crud.db_crud.models.Aluno;
+import org.db_crud.db_crud.models.Curso;
 import org.db_crud.db_crud.services.AlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -52,6 +53,12 @@ public class AlunoController {
     @GetMapping("/escola/{id}")
     public ResponseEntity<List<Aluno>> findAllByEscolaId(@PathVariable Integer id){
         List<Aluno> alunos = alunoService.findAllByEscolaId(id);
+        return ResponseEntity.ok().body(alunos);
+    }
+
+    @GetMapping("/curso/{id}")
+    public ResponseEntity<List<Aluno>> findAllByCursoId(@PathVariable Integer id){
+        List<Aluno> alunos = alunoService.findAllByCursoId(id);
         return ResponseEntity.ok().body(alunos);
     }
 }
