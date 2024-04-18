@@ -2,6 +2,7 @@ package org.db_crud.db_crud.models;
 
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -23,7 +24,7 @@ public class Escola {
     private String localizacao;
 
     @OneToMany(mappedBy = "escola", fetch = FetchType.LAZY)
-    private Set<Aluno> alunos;
+    private List<Aluno> alunos;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "escolas_cursos", joinColumns = @JoinColumn(name = "escola_fk"),
@@ -63,11 +64,11 @@ public class Escola {
         this.localizacao = localizacao;
     }
 
-    public Set<Aluno> getAlunos() {
+    public List<Aluno> getAlunos() {
         return alunos;
     }
 
-    public void setAlunos(Set<Aluno> alunos) {
+    public void setAlunos(List<Aluno> alunos) {
         this.alunos = alunos;
     }
 
