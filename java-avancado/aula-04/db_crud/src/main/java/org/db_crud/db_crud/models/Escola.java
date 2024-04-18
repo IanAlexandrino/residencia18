@@ -2,9 +2,8 @@ package org.db_crud.db_crud.models;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = Escola.TABLE_NAME)
@@ -24,12 +23,12 @@ public class Escola {
     private String localizacao;
 
     @OneToMany(mappedBy = "escola", fetch = FetchType.LAZY)
-    private List<Aluno> alunos = new ArrayList<Aluno>();
+    private Set<Aluno> alunos;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "escolas_cursos", joinColumns = @JoinColumn(name = "escola_fk"),
             inverseJoinColumns = @JoinColumn(name = "curso_fk"))
-    private List<Curso> cursos;
+    private Set<Curso> cursos;
 
     public Escola() {
     }
@@ -64,19 +63,19 @@ public class Escola {
         this.localizacao = localizacao;
     }
 
-    public List<Aluno> getAlunos() {
+    public Set<Aluno> getAlunos() {
         return alunos;
     }
 
-    public void setAlunos(List<Aluno> alunos) {
+    public void setAlunos(Set<Aluno> alunos) {
         this.alunos = alunos;
     }
 
-    public List<Curso> getCursos() {
+    public Set<Curso> getCursos() {
         return cursos;
     }
 
-    public void setCursos(List<Curso> cursos) {
+    public void setCursos(Set<Curso> cursos) {
         this.cursos = cursos;
     }
 

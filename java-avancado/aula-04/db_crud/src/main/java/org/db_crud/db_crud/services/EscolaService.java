@@ -30,7 +30,7 @@ public class EscolaService {
 
     @Transactional
     public Escola update(Escola escola){
-        Escola novaEscola = findById(escola.getId());
+        Escola novaEscola = this.findById(escola.getId());
         novaEscola.setNome(escola.getNome());
         novaEscola.setLocalizacao(escola.getLocalizacao());
         return this.escolaRepository.save(novaEscola);
@@ -38,7 +38,7 @@ public class EscolaService {
 
     @Transactional
     public void delete(Integer id){
-        findById(id);
+        this.findById(id);
         try {
             this.escolaRepository.deleteById(id);
         } catch (Exception e) {

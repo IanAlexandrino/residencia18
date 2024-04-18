@@ -1,7 +1,6 @@
 package org.db_crud.db_crud.controllers;
 
 import org.db_crud.db_crud.models.Aluno;
-import org.db_crud.db_crud.models.Curso;
 import org.db_crud.db_crud.services.AlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
