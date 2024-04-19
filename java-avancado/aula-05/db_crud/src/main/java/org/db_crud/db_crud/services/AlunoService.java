@@ -4,6 +4,8 @@ import org.db_crud.db_crud.models.Aluno;
 import org.db_crud.db_crud.models.Curso;
 import org.db_crud.db_crud.models.Escola;
 import org.db_crud.db_crud.repositories.AlunoRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +15,8 @@ import java.util.Optional;
 
 @Service
 public class AlunoService {
+
+    public static final Logger log = LoggerFactory.getLogger(AlunoService.class);
 
     @Autowired
     private AlunoRepository alunoRepository;
@@ -25,6 +29,9 @@ public class AlunoService {
 
     public Aluno findByMatricula(Integer matricula){
         Optional<Aluno> aluno = this.alunoRepository.findById(matricula);
+        if (aluno.isPresent()){
+            log.info("Aluno encontrado com sucesso!");
+        }
         return aluno.orElseThrow(() -> new RuntimeException(
                 "Aluno não encontrado! Matrícula: " + matricula + ", Tipo: " + Aluno.class.getName()
         ));
@@ -46,6 +53,7 @@ public class AlunoService {
         aluno.setCurso(curso);
         aluno.setEscola(escola);
         aluno = this.alunoRepository.save(aluno);
+        log.info("Novo Aluno inserido!");
         return aluno;
     }
 
@@ -54,6 +62,7 @@ public class AlunoService {
         Aluno novoAluno = this.findByMatricula(aluno.getMatricula());
         novoAluno.setCurso(aluno.getCurso());
         novoAluno.setEscola(aluno.getEscola());
+        log.info("Entidade Aluno atualizada!");
         return this.alunoRepository.save(novoAluno);
     }
 
@@ -62,6 +71,7 @@ public class AlunoService {
         this.findByMatricula(matricula);
         try {
             this.alunoRepository.deleteById(matricula);
+            log.info("Entidade Aluno foi deletada!");
         } catch (Exception e) {
             throw new RuntimeException(
                     "Não é possível excluir pois há Entidades relacionadas!"

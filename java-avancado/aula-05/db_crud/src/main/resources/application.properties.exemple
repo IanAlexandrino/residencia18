@@ -1,3 +1,4 @@
+# SpringBoot connection
 spring.datasource.url=
 spring.datasource.driverClassName=org.postgresql.Driver
 spring.datasource.username=postgres
@@ -7,3 +8,9 @@ spring.datasource.password=
 spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.defer-datasource-initialization=true
+
+# Slf4j
+logging.level.root=info
+logging.file.name=db_crud.log
+logging.logback.rollingpolicy.max-file-size=10MB
+logging.logback.rollingpolicy.max-history=10

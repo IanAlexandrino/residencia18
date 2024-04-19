@@ -5,6 +5,8 @@ import org.db_crud.db_crud.models.Curso;
 import org.db_crud.db_crud.models.Escola;
 import org.db_crud.db_crud.repositories.CursoRepository;
 import org.db_crud.db_crud.repositories.EscolaRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +17,8 @@ import java.util.Set;
 
 @Service
 public class EscolaService {
+
+    public static final Logger log = LoggerFactory.getLogger(EscolaService.class);
 
     @Autowired
     private EscolaRepository escolaRepository;
@@ -27,6 +31,9 @@ public class EscolaService {
 
     public Escola findById(Integer id){
         Optional<Escola> escola = this.escolaRepository.findById(id);
+        if (escola.isPresent()){
+            log.info("Escola encontrada com sucesso!");
+        }
         return escola.orElseThrow(() -> new EntityNotFoundException(
                 "Escola não encontrada! Id: " + id + ", Tipo: " + Escola.class.getName()
         ));
@@ -36,6 +43,7 @@ public class EscolaService {
     public Escola create(Escola escola){
         escola.setId(null);
         escola = this.escolaRepository.save(escola);
+        log.info("Nova Escola inserida!");
         return escola;
     }
 
@@ -44,6 +52,7 @@ public class EscolaService {
         Escola novaEscola = this.findById(escola.getId());
         novaEscola.setNome(escola.getNome());
         novaEscola.setLocalizacao(escola.getLocalizacao());
+        log.info("Entidade Escola atualizada!");
         return this.escolaRepository.save(novaEscola);
     }
 
@@ -52,6 +61,7 @@ public class EscolaService {
         this.findById(id);
         try {
             this.escolaRepository.deleteById(id);
+             log.info("Entidade Escola foi deletada!");
         } catch (Exception e) {
             throw new RuntimeException(
                     "Não é possível excluir pois há Entidades relacionadas!"
@@ -67,5 +77,6 @@ public class EscolaService {
         cursos.add(curso);
         escola.setCursos(cursos);
         this.escolaRepository.save(escola);
+        log.info("Um Curso foi atribuído para Escola!");
     }
 }
