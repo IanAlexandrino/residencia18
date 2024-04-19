@@ -15,7 +15,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 @ExtendWith(MockitoExtension.class)
 public class EmployeeServiceImplTest {
@@ -28,7 +27,6 @@ public class EmployeeServiceImplTest {
 
     private Employee employee;
     private Faker faker;
-    private Random random = new Random();
 
     @Test
     @DisplayName("Testanto o save de um employee fake")

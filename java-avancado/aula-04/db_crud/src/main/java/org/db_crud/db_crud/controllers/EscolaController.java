@@ -32,12 +32,12 @@ public class EscolaController {
         return ResponseEntity.created(uri).build();
     }
 
-    @PostMapping("/assign/{escolaId}/to/{cursoId}")
+    @PostMapping("/assign/{cursoId}/to/{escolaId}")
     public ResponseEntity<Void> assignCursoToEscoolaById(
-            @PathVariable Integer escolaId,
-            @PathVariable Integer cursoId
+            @PathVariable Integer cursoId,
+            @PathVariable Integer escolaId
     ){
-        this.escolaService.assignEscolaToCursoById(escolaId, cursoId);
+        this.escolaService.assignCursoToEscolaById(cursoId, escolaId);
         return ResponseEntity.ok().build();
     }
 

@@ -1,5 +1,6 @@
 package org.db_crud.db_crud.services;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.db_crud.db_crud.models.Curso;
 import org.db_crud.db_crud.models.Escola;
 import org.db_crud.db_crud.repositories.CursoRepository;
@@ -19,11 +20,14 @@ public class EscolaService {
     private EscolaRepository escolaRepository;
 
     @Autowired
+    private CursoRepository cursoRepository;
+
+    @Autowired
     private CursoService cursoService;
 
     public Escola findById(Integer id){
         Optional<Escola> escola = this.escolaRepository.findById(id);
-        return escola.orElseThrow(() -> new RuntimeException(
+        return escola.orElseThrow(() -> new EntityNotFoundException(
                 "Escola não encontrada! Id: " + id + ", Tipo: " + Escola.class.getName()
         ));
     }
@@ -56,9 +60,9 @@ public class EscolaService {
     }
 
     @Transactional
-    public void assignEscolaToCursoById(Integer escolaId, Integer cursoId){
-        Escola escola = this.findById(escolaId);
+    public void assignCursoToEscolaById(Integer cursoId, Integer escolaId){
         Curso curso = this.cursoService.findById(cursoId);
+        Escola escola = this.findById(escolaId);
         Set<Curso> cursos = new HashSet<>();
         cursos.add(curso);
         escola.setCursos(cursos);
