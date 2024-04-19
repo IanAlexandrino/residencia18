@@ -1,6 +1,6 @@
 # db_crud
 
-Um simples crud de alunos e escolas.
+Um simples crud de alunos, escolas e cursos.
 
 ## Alunos
 
@@ -11,7 +11,7 @@ http://localhost:8080/alunos/2
 
 ### GET
 
-Retorna Alunos matriculados em determinada Escola de acordo com o id da mesma
+Retorna Alunos matriculados em determinada Escola
 http://localhost:8080/alunos/escola/2
 
 ### POST
@@ -72,7 +72,7 @@ http://localhost:8080/escolas/1
 ### POST
 
 Insere uma Escola
-http://localhost:8080/escolas/
+http://localhost:8080/escolas
 
 Request Headers
 Content-Type
@@ -87,12 +87,14 @@ json
 "localizacao": "Rua Medeiros Neto 160A"
 }
 
-### PUT
+### POST
 
+Atribui Curso em Escola por id
+http://localhost:8080/escolas/assign/1/to/1
+
+### PUT
 Atualiza Escola por id
 http://localhost:8080/escolas/1
-
-
 
 Request Headers
 Content-Type
@@ -111,3 +113,59 @@ json
 
 Deleta Escola por id
 http://localhost:8080/escolas/1
+
+## Cursos
+
+### GET
+
+Retorna Curso por id
+http://localhost:8080/cursos/2
+
+### GET
+
+Retorna Cursos disponíveis em Escola por id
+http://localhost:8080/cursos/escola/1
+
+### POST
+
+Insere um Curso
+http://localhost:8080/cursos
+
+Request Headers
+Content-Type
+application/json
+
+#### Body
+
+raw (json)
+View More
+json
+{
+"nome": "Engenharia da Computação",
+"conteudo": "Administração, Automação Industrial"
+}
+
+### PUT
+
+Atualiza Curso por id
+http://localhost:8080/cursos/2
+
+Request Headers
+Content-Type
+application/json
+
+#### Body
+
+raw (json)
+View More
+json
+{
+"id": 2,
+"nome": "Engenharia Mecatrônica",
+"conteudo": "Administração, Automação Industrial, Controle Estatístico"
+}
+
+### DELETE
+
+Deleta Curso por id
+http://localhost:8080/cursos/3
