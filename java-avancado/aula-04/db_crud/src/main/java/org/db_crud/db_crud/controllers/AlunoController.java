@@ -25,6 +25,18 @@ public class AlunoController {
         return ResponseEntity.ok(aluno);
     }
 
+    @GetMapping("/escola/{id}")
+    public ResponseEntity<List<Aluno>> findAllByEscolaId(@PathVariable Integer id){
+        List<Aluno> alunos = alunoService.findAllByEscolaId(id);
+        return ResponseEntity.ok().body(alunos);
+    }
+
+    @GetMapping("/curso/{id}")
+    public ResponseEntity<List<Aluno>> findAllByCursoId(@PathVariable Integer id){
+        List<Aluno> alunos = alunoService.findAllByCursoId(id);
+        return ResponseEntity.ok().body(alunos);
+    }
+
     @PostMapping
     public ResponseEntity<Aluno> criaAluno(@RequestBody Aluno aluno){
         this.alunoService.create(aluno);
@@ -47,17 +59,5 @@ public class AlunoController {
     public ResponseEntity<?> deletaAluno(@PathVariable Integer matricula){
         this.alunoService.delete(matricula);
         return ResponseEntity.noContent().build();
-    }
-
-    @GetMapping("/escola/{id}")
-    public ResponseEntity<List<Aluno>> findAllByEscolaId(@PathVariable Integer id){
-        List<Aluno> alunos = alunoService.findAllByEscolaId(id);
-        return ResponseEntity.ok().body(alunos);
-    }
-
-    @GetMapping("/curso/{id}")
-    public ResponseEntity<List<Aluno>> findAllByCursoId(@PathVariable Integer id){
-        List<Aluno> alunos = alunoService.findAllByCursoId(id);
-        return ResponseEntity.ok().body(alunos);
     }
 }

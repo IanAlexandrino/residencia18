@@ -25,6 +25,12 @@ public class CursoController {
         return ResponseEntity.ok().body(curso);
     }
 
+    @GetMapping("/escola/{id}")
+    public ResponseEntity<List<Curso>> findAllByEscolaId(@PathVariable Integer id){
+        List<Curso> cursos = cursoService.findAllByEscolaId(id);
+        return ResponseEntity.ok().body(cursos);
+    }
+
     @PostMapping
     public ResponseEntity<Void> criaCurso(@RequestBody Curso curso){
         this.cursoService.create(curso);
@@ -32,6 +38,15 @@ public class CursoController {
                 .path("/{id}").buildAndExpand(curso.getId()).toUri();
         return ResponseEntity.created(uri).build();
 
+    }
+
+    @PostMapping("/assign/{cursoId}/to/{escolaId}")
+    public ResponseEntity<Void> assignCursoToEscoolaById(
+            @PathVariable Integer cursoId,
+            @PathVariable Integer escolaId
+    ){
+        this.cursoService.assignCursoToEscolaById(cursoId, escolaId);
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping("/{id}")
@@ -48,11 +63,5 @@ public class CursoController {
     public ResponseEntity<Void> deletaCurso(@PathVariable Integer id){
         this.cursoService.delete(id);
         return ResponseEntity.noContent().build();
-    }
-
-    @GetMapping("/escola/{id}")
-    public ResponseEntity<List<Curso>> findAllByEscolaId(@PathVariable Integer id){
-        List<Curso> cursos = cursoService.findAllByEscolaId(id);
-        return ResponseEntity.ok().body(cursos);
     }
 }

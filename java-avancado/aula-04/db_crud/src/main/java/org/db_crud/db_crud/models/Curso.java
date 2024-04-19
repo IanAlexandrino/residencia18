@@ -1,7 +1,9 @@
 package org.db_crud.db_crud.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -22,9 +24,11 @@ public class Curso {
     @Column(name = "conteudo", nullable = false)
     private String conteudo;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "curso", fetch = FetchType.LAZY)
-    private Set<Aluno> alunos;
+    private List<Aluno> alunos;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "cursos", fetch = FetchType.LAZY)
     private Set<Escola> escolas;
 
@@ -61,11 +65,11 @@ public class Curso {
         this.conteudo = conteudo;
     }
 
-    public Set<Aluno> getAlunos() {
+    public List<Aluno> getAlunos() {
         return alunos;
     }
 
-    public void setAlunos(Set<Aluno> alunos) {
+    public void setAlunos(List<Aluno> alunos) {
         this.alunos = alunos;
     }
 
@@ -74,7 +78,7 @@ public class Curso {
     }
 
     public void setEscolas(Set<Escola> escolas) {
-        this.escolas = escolas;
+        this.escolas.addAll(escolas);
     }
 
     @Override

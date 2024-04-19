@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface CursoRepository extends JpaRepository<Curso, Integer> {
 
-    List<Curso> findByEscola_Id (Integer id);
+    List<Curso> findByEscolas_Id (Integer id);
 
 }

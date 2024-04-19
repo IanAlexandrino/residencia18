@@ -1,19 +1,29 @@
 package org.db_crud.db_crud.services;
 
 import org.db_crud.db_crud.models.Curso;
+import org.db_crud.db_crud.models.Escola;
 import org.db_crud.db_crud.repositories.CursoRepository;
+import org.db_crud.db_crud.repositories.EscolaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class CursoService {
 
     @Autowired
     private CursoRepository cursoRepository;
+
+    @Autowired
+    private EscolaService escolaService;
+
+    @Autowired
+    private EscolaRepository escolaRepository;
 
     public Curso findById(Integer id){
         Optional<Curso> curso = this.cursoRepository.findById(id);
@@ -23,7 +33,7 @@ public class CursoService {
     }
 
     public List<Curso> findAllByEscolaId(Integer escoolaId){
-        return this.cursoRepository.findByEscola_Id(escoolaId);
+        return this.cursoRepository.findByEscolas_Id(escoolaId);
     }
 
     @Transactional
@@ -52,4 +62,13 @@ public class CursoService {
         }
     }
 
+    @Transactional
+    public void assignCursoToEscolaById(Integer cursoId, Integer escolaId){
+        Curso curso = this.findById(cursoId);
+        Escola escola = this.escolaService.findById(escolaId);
+        Set<Curso> cursos = new HashSet<>();
+        cursos.add(curso);
+        escola.setCursos(cursos);
+        this.escolaRepository.save(escola);
+    }
 }

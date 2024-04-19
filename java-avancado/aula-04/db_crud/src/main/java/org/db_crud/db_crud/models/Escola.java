@@ -77,7 +77,7 @@ public class Escola {
     }
 
     public void setCursos(Set<Curso> cursos) {
-        this.cursos = cursos;
+        this.cursos.addAll(cursos);
     }
 
     @Override

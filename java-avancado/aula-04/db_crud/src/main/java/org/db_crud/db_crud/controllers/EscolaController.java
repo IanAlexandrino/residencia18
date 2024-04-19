@@ -32,6 +32,15 @@ public class EscolaController {
         return ResponseEntity.created(uri).build();
     }
 
+    @PostMapping("/assign/{escolaId}/to/{cursoId}")
+    public ResponseEntity<Void> assignCursoToEscoolaById(
+            @PathVariable Integer escolaId,
+            @PathVariable Integer cursoId
+    ){
+        this.escolaService.assignEscolaToCursoById(escolaId, cursoId);
+        return ResponseEntity.ok().build();
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<Void> atualizaEscola(
             @PathVariable Integer id,
