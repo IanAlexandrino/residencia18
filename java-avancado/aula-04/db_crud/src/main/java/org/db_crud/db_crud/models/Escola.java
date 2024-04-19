@@ -2,6 +2,7 @@ package org.db_crud.db_crud.models;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -29,7 +30,7 @@ public class Escola {
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "escolas_cursos", joinColumns = @JoinColumn(name = "escola_fk"),
             inverseJoinColumns = @JoinColumn(name = "curso_fk"))
-    private Set<Curso> cursos;
+    private Set<Curso> cursos = new HashSet<>();
 
     public Escola() {
     }

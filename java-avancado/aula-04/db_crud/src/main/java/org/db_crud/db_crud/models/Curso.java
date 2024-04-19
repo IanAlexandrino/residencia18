@@ -3,6 +3,7 @@ package org.db_crud.db_crud.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -30,7 +31,7 @@ public class Curso {
 
     @JsonIgnore
     @ManyToMany(mappedBy = "cursos", fetch = FetchType.LAZY)
-    private Set<Escola> escolas;
+    private Set<Escola> escolas = new HashSet<>();
 
     public Curso() {
     }
