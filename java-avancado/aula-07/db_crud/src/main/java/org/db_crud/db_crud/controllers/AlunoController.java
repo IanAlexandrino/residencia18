@@ -1,5 +1,6 @@
 package org.db_crud.db_crud.controllers;
 
+import jakarta.validation.Valid;
 import org.db_crud.db_crud.models.Aluno;
 import org.db_crud.db_crud.services.AlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,8 @@ public class AlunoController {
     }
 
     @PostMapping
-    public ResponseEntity<Aluno> criaAluno(@RequestBody Aluno aluno){
+    @Validated
+    public ResponseEntity<Aluno> criaAluno(@Valid @RequestBody Aluno aluno){
         this.alunoService.create(aluno);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{matricula}").buildAndExpand(aluno.getMatricula()).toUri();
@@ -46,7 +48,9 @@ public class AlunoController {
     }
 
     @PutMapping("/{matricula}")
+    @Validated
     public ResponseEntity<?> atualizaAluno(
+            @Valid
             @PathVariable Integer matricula,
             @RequestBody Aluno aluno
     ){

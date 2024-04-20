@@ -1,5 +1,6 @@
 package org.db_crud.db_crud.controllers;
 
+import jakarta.validation.Valid;
 import org.db_crud.db_crud.models.Escola;
 import org.db_crud.db_crud.services.EscolaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,8 @@ public class EscolaController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> criaEscola(@RequestBody Escola escola){
+    @Validated
+    public ResponseEntity<Void> criaEscola(@Valid @RequestBody Escola escola){
         this.escolaService.create(escola);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(escola.getId()).toUri();
@@ -42,7 +44,9 @@ public class EscolaController {
     }
 
     @PutMapping("/{id}")
+    @Validated
     public ResponseEntity<Void> atualizaEscola(
+            @Valid
             @PathVariable Integer id,
             @RequestBody Escola escola
     ){

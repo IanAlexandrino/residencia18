@@ -1,5 +1,6 @@
 package org.db_crud.db_crud.controllers;
 
+import jakarta.validation.Valid;
 import org.db_crud.db_crud.models.Curso;
 import org.db_crud.db_crud.services.CursoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,8 @@ public class CursoController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> criaCurso(@RequestBody Curso curso){
+    @Validated(Curso.CreateCurso.class)
+    public ResponseEntity<Void> criaCurso(@Valid @RequestBody Curso curso){
         this.cursoService.create(curso);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(curso.getId()).toUri();
@@ -41,7 +43,9 @@ public class CursoController {
     }
 
     @PutMapping("/{id}")
+    @Validated(Curso.UpdateCurso.class)
     public ResponseEntity<Void> atualizaCurso(
+            @Valid
             @PathVariable Integer id,
             @RequestBody Curso curso
     ){
