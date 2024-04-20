@@ -2,6 +2,9 @@ package org.db_crud.db_crud.models;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,9 +27,15 @@ public class Escola {
     @Column(name = "id", unique = true)
     private Integer id;
 
+    @NotNull(message = "Campo nome não pode ser nulo!")
+    @NotEmpty(message = "Campo nome não pode ser uma string vazia!")
+    @Size(min = 5, max = 60, message = "Campo nome não pode ser menor que 5 nem maior que 60!")
     @Column(name = "nome", nullable = false)
     private String nome;
 
+    @NotNull(message = "Campo localizacao não pode ser nulo!")
+    @NotEmpty(message = "Campo localizacao não pode ser uma string vazia!")
+    @Size(min = 10, max = 70, message = "Campo localizacao não pode ser menor que 10 nem maior que 70!")
     @Column(name = "localizacao", nullable = false)
     private String localizacao;
 
