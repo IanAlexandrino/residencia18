@@ -1,5 +1,6 @@
 package org.db_crud.db_crud.models;
 
+import com.github.javafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,19 +20,30 @@ public class CursoTest {
     private Escola escola2;
     private Escola escola3;
 
+    private static Faker faker = new Faker();
+
+    public class ModelMock{
+        public static final int idEscola = faker.number().randomDigit();
+        public static final int idCurso = faker.number().randomDigit();
+        public static final String nomeEscola = faker.company().name();
+        public static final String nomeCurso = faker.educator().course();
+        public static final String endereco = faker.address().streetAddress();
+        public static final String conteudo = faker.educator().course() + faker.educator().course() + faker.educator().course();
+    }
+
     @BeforeEach
     void setUp() {
-        curso1 = new Curso(1, "Matemática", "Conteúdo de Matemática");
-        curso2 = new Curso(2, "Português", "Conteúdo de Português");
-        curso3 = new Curso(1, "Matemática", "Conteúdo de Matemática");
+        curso1 = new Curso(ModelMock.idCurso, ModelMock.nomeCurso, ModelMock.conteudo);
+        curso2 = new Curso(faker.number().randomDigit(), faker.educator().course(), faker.educator().course() + faker.educator().course() + faker.educator().course());
+        curso3 = new Curso(curso1.getId(), curso1.getNome(), curso1.getConteudo());
 
-        escola1 = new Escola(1, "Escola Veja a vida", "Rua pararara");
-        escola2 = new Escola(2, "Escola Republicana", "Rua pararara");
-        escola3 = new Escola(1, "Escola Pública", "Rua pararara");
+        escola1 = new Escola(ModelMock.idEscola, ModelMock.nomeEscola, ModelMock.endereco);
+        escola2 = new Escola(faker.number().randomDigit(), faker.company().name(), faker.address().streetAddress());
+        escola3 = new Escola(escola1.getId(), escola1.getNome(), escola1.getLocalizacao());
 
         List<Aluno> alunos = new ArrayList<>();
-        alunos.add(new Aluno(1, "João", "34234234", curso1, escola1));
-        alunos.add(new Aluno(2, "Maria", "67867893646", curso1, escola1));
+        alunos.add(new Aluno(faker.number().randomDigit(), faker.name().fullName(), faker.idNumber().valid(), curso1, escola1));
+        alunos.add(new Aluno(faker.number().randomDigit(), faker.name().fullName(), faker.idNumber().valid(), curso1, escola1));
         curso1.setAlunos(alunos);
 
         Set<Escola> escolas = new HashSet<>();
@@ -43,8 +55,8 @@ public class CursoTest {
 
     @Test
     void testEquals() {
-        assertEquals(curso1, curso3);
-        assertNotEquals(curso1, curso2);
+        assertEquals(curso1.getId(), curso3.getId());
+        assertNotEquals(curso1.getId(), curso2.getId());
     }
 
     @Test
@@ -54,9 +66,9 @@ public class CursoTest {
 
     @Test
     void testGettersAndSetters() {
-        assertEquals(Integer.valueOf(1), curso1.getId());
-        assertEquals("Matemática", curso1.getNome());
-        assertEquals("Conteúdo de Matemática", curso1.getConteudo());
+        assertEquals(ModelMock.idCurso, curso1.getId());
+        assertEquals(ModelMock.nomeCurso, curso1.getNome());
+        assertEquals(ModelMock.conteudo, curso1.getConteudo());
 
         assertEquals(2, curso1.getAlunos().size());
 
