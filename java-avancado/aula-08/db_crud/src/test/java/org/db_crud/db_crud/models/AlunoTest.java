@@ -11,8 +11,12 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AlunoTest {
 
     Escola escola1;
+    Escola escola2;
     Curso curso1;
+    Curso curso2;
     Aluno aluno1;
+    Aluno aluno2;
+    Aluno aluno3;
 
     static Faker faker = new Faker();
 
@@ -31,8 +35,12 @@ public class AlunoTest {
     @BeforeEach
     public void prencheMoks(){
         escola1 = new Escola(ModelMock.idEscola, ModelMock.nomeEscola, ModelMock.endereco);
+        escola2 = new Escola(faker.number().randomDigit(), faker.company().name(), faker.address().streetAddress());
         curso1 = new Curso(ModelMock.idCurso, ModelMock.nomeCurso, ModelMock.conteudo);
+        curso2 = new Curso(faker.number().randomDigit(), faker.educator().course(), faker.educator().course() + faker.educator().course() + faker.educator().course());
         aluno1 = new Aluno(ModelMock.idAluno, ModelMock.nomeAluno, ModelMock.cpf, curso1, escola1);
+        aluno2 = new Aluno(aluno1.getMatricula(), aluno1.getNome(), aluno1.getCpf(), curso1, escola1);
+        aluno3 = new Aluno(faker.number().randomDigit(), faker.name().fullName(), faker.idNumber().valid(), curso2, escola2);
     }
 
     @Test
@@ -46,12 +54,6 @@ public class AlunoTest {
 
     @Test
     public void testaEqualsEHashCode(){
-
-        Escola escola2 = new Escola(faker.number().randomDigit(), faker.company().name(), faker.address().streetAddress());
-        Curso curso2 = new Curso(faker.number().randomDigit(), faker.educator().course(), faker.educator().course() + faker.educator().course() + faker.educator().course());
-        Aluno aluno2 = new Aluno(aluno1.getMatricula(), aluno1.getNome(), aluno1.getCpf(), curso1, escola1);
-        Aluno aluno3 = new Aluno(faker.number().randomDigit(), faker.name().fullName(), faker.idNumber().valid(), curso2, escola2);
-
         assertEquals(aluno1, aluno2);
         assertEquals(aluno1.hashCode(), aluno2.hashCode());
         assertNotEquals(aluno1, aluno3);

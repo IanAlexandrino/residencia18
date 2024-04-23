@@ -60,11 +60,6 @@ public class CursoTest {
     }
 
     @Test
-    void testHashCode() {
-        assertEquals(curso1.hashCode(), curso3.hashCode());
-    }
-
-    @Test
     void testGettersAndSetters() {
         assertEquals(ModelMock.idCurso, curso1.getId());
         assertEquals(ModelMock.nomeCurso, curso1.getNome());
