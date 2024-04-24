@@ -26,6 +26,12 @@ public class AlunoServiceTest {
     @Mock
     private AlunoRepository alunoRepository;
 
+    @Mock
+    private CursoService cursoService;
+
+    @Mock
+    private EscolaService escolaService;
+
     @InjectMocks
     private AlunoService alunoService;
 
@@ -97,5 +103,16 @@ public class AlunoServiceTest {
     void shouldReturnEmptyAlunosListWithEscolaId(){
         List<Aluno> alunosFound = alunoService.findAllByEscolaId(234234);
         Assertions.assertTrue(alunosFound.isEmpty());
+    }
+
+    @Test
+    void shouldSuccessCreateAluno(){
+        Mockito.when(cursoService.findById(ModelMocks.idCurso)).thenReturn(curso);
+        Mockito.when(escolaService.findById(ModelMocks.idEscola)).thenReturn(escola);
+        Mockito.when(alunoRepository.save(Mockito.any(Aluno.class))).thenReturn(aluno);
+        Aluno alunoSalvo = alunoService.create(aluno);
+        Mockito.verify(alunoRepository).save(Mockito.any(Aluno.class));
+        Assertions.assertNotNull(alunoSalvo);
+        Assertions.assertEquals(aluno.getNome(), alunoSalvo.getNome());
     }
 }
