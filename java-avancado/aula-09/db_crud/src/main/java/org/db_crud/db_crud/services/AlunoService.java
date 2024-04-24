@@ -1,5 +1,6 @@
 package org.db_crud.db_crud.services;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.db_crud.db_crud.models.Aluno;
 import org.db_crud.db_crud.models.Curso;
 import org.db_crud.db_crud.models.Escola;
@@ -32,7 +33,7 @@ public class AlunoService {
         if (aluno.isPresent()){
             log.info("Aluno encontrado com sucesso!");
         }
-        return aluno.orElseThrow(() -> new RuntimeException(
+        return aluno.orElseThrow(() -> new EntityNotFoundException(
                 "Aluno não encontrado! Matrícula: " + matricula + ", Tipo: " + Aluno.class.getName()
         ));
     }
