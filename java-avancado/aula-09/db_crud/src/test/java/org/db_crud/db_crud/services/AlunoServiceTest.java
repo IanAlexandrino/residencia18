@@ -16,6 +16,8 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
@@ -60,13 +62,40 @@ public class AlunoServiceTest {
 
     @Test
     void shouldThrowEntityNotFoundException(){
-        Mockito.when(alunoRepository.findById(5433333)).thenThrow(new EntityNotFoundException(
-                "Aluno não encontrado! Matrícula: " + 5433333 + ", Tipo: " + Aluno.class.getName()
-
-        ));
         Assertions.assertThrows(EntityNotFoundException.class, () -> {
             alunoService.findByMatricula(5433333);
         });
     }
 
+    @Test
+    void shouldSuccessFindAllByCursoId(){
+        List<Aluno> alunos = new ArrayList<>();
+        alunos.add(new Aluno());
+        alunos.add(new Aluno());
+        Mockito.when(alunoRepository.findByCurso_Id(ModelMocks.idCurso)).thenReturn(alunos);
+        List<Aluno> alunosFound = alunoService.findAllByCursoId(ModelMocks.idCurso);
+        Assertions.assertEquals(2, alunosFound.size());
+    }
+
+    @Test
+    void shouldReturnEmptyAlunosListWithCursoId(){
+        List<Aluno> alunosFound = alunoService.findAllByCursoId(234234);
+        Assertions.assertTrue(alunosFound.isEmpty());
+    }
+
+    @Test
+    void shouldSuccessFindAllByEscolaId(){
+        List<Aluno> alunos = new ArrayList<>();
+        alunos.add(new Aluno());
+        alunos.add(new Aluno());
+        Mockito.when(alunoRepository.findByEscola_Id(ModelMocks.idEscola)).thenReturn(alunos);
+        List<Aluno> alunosFound = alunoService.findAllByEscolaId(ModelMocks.idEscola);
+        Assertions.assertEquals(2, alunosFound.size());
+    }
+
+    @Test
+    void shouldReturnEmptyAlunosListWithEscolaId(){
+        List<Aluno> alunosFound = alunoService.findAllByEscolaId(234234);
+        Assertions.assertTrue(alunosFound.isEmpty());
+    }
 }
