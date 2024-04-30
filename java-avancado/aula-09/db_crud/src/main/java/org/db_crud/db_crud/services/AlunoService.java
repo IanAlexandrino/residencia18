@@ -59,8 +59,8 @@ public class AlunoService {
     }
 
     @Transactional
-    public Aluno update(Aluno aluno){
-        Aluno novoAluno = this.findByMatricula(aluno.getMatricula());
+    public Aluno update(Integer matricula, Aluno aluno){
+        Aluno novoAluno = this.findByMatricula(matricula);
         novoAluno.setCurso(aluno.getCurso());
         novoAluno.setEscola(aluno.getEscola());
         log.info("Entidade Aluno atualizada!");

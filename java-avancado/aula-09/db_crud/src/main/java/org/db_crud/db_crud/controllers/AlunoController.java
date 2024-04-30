@@ -54,8 +54,7 @@ public class AlunoController {
             @PathVariable Integer matricula,
             @RequestBody Aluno aluno
     ){
-        aluno.setMatricula(matricula);
-        this.alunoService.update(aluno);
+        this.alunoService.update(matricula, aluno);
         return ResponseEntity.noContent().build();
     }
 

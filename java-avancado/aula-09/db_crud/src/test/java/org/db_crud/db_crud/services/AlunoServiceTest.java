@@ -38,9 +38,9 @@ public class AlunoServiceTest {
     private Aluno aluno;
     private Escola escola;
     private Curso curso;
-    private static Faker faker = new Faker();
+    private static final Faker faker = new Faker();
 
-    public class ModelMocks {
+    public static class ModelMocks {
         public static Integer idAluno = faker.number().randomDigit();
         public static Integer idEscola = faker.number().randomDigit();
         public static Integer idCurso = faker.number().randomDigit();
@@ -114,5 +114,33 @@ public class AlunoServiceTest {
         Mockito.verify(alunoRepository).save(Mockito.any(Aluno.class));
         Assertions.assertNotNull(alunoSalvo);
         Assertions.assertEquals(aluno.getNome(), alunoSalvo.getNome());
+    }
+
+    @Test
+    void shouldSuccessUpdateAluno(){
+        Escola escola2 = new Escola();
+        escola2.setId(6);
+        Curso curso2 = new Curso();
+        curso2.setId(9);
+        Aluno aluno2 = new Aluno(ModelMocks.idAluno, ModelMocks.nomeAluno, ModelMocks.cpfAluno, curso2, escola2);
+        Mockito.when(alunoRepository.findById(aluno.getMatricula())).thenReturn(Optional.of(aluno));
+        Mockito.when(alunoRepository.save(Mockito.any(Aluno.class))).thenReturn(aluno2);
+        Aluno alunoAtualizado = this.alunoService.update(ModelMocks.idAluno, aluno2);
+        Assertions.assertNotNull(alunoAtualizado);
+        Assertions.assertEquals(aluno2.getCurso(), alunoAtualizado.getCurso());
+        Assertions.assertEquals(aluno2.getEscola(), alunoAtualizado.getEscola());
+    }
+
+    @Test
+    void shouldntUpdateAlunoAndThrowEntityNotFoundException(){
+        Escola escola2 = new Escola();
+        escola2.setId(6);
+        Curso curso2 = new Curso();
+        curso2.setId(9);
+        Aluno aluno2 = new Aluno(ModelMocks.idAluno, ModelMocks.nomeAluno, ModelMocks.cpfAluno, curso2, escola2);
+        Mockito.when(alunoRepository.findById(aluno.getMatricula())).thenReturn(Optional.empty());
+        Assertions.assertThrows(EntityNotFoundException.class, () -> {
+            alunoService.update(ModelMocks.idAluno, aluno2);
+        });
     }
 }
