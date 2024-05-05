@@ -1,3 +1,4 @@
+# Spring config
 spring.application.name=AP002
 
 # SpringBoot connection
