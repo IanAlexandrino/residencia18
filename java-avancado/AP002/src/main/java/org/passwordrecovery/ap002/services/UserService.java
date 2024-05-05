@@ -1,8 +1,9 @@
 package org.passwordrecovery.ap002.services;
 
-import jakarta.persistence.EntityNotFoundException;
 import org.passwordrecovery.ap002.models.User;
 import org.passwordrecovery.ap002.repositories.UserRepository;
+import org.passwordrecovery.ap002.services.exceptions.DataBindingViolationException;
+import org.passwordrecovery.ap002.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +18,7 @@ public class UserService {
 
     public User findById(Long id){
         Optional<User> user = this.userRepository.findById(id);
-        return user.orElseThrow(() -> new EntityNotFoundException(
+        return user.orElseThrow(() -> new ObjectNotFoundException(
                 "Usuário não encontrado! Id: " + id + ", Tipo: " + User.class.getName()
         ));
     }
@@ -49,7 +50,7 @@ public class UserService {
 
         } catch (Exception e){
 
-            throw new RuntimeException(
+            throw new DataBindingViolationException(
                     "Não é possível excluir pois existem entidades relacionadas!"
             );
 

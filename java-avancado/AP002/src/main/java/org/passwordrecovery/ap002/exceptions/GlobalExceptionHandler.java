@@ -3,6 +3,7 @@ package org.passwordrecovery.ap002.exceptions;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.passwordrecovery.ap002.services.exceptions.DataBindingViolationException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import org.passwordrecovery.ap002.services.exceptions.ObjectNotFoundException;
 
 @Slf4j(topic = "GLOBAL_EXCEPTION_HANDLER")
 @RestControllerAdvice
@@ -77,6 +79,30 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return buildErrorResponse(
                 constraintViolationException,
                 HttpStatus.UNPROCESSABLE_ENTITY,
+                request);
+    }
+
+    @ExceptionHandler(ObjectNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<Object> handleObjectNotFoundException(
+            ObjectNotFoundException objectNotFoundException,
+            WebRequest request) {
+        log.error("Failed to find the requested element", objectNotFoundException);
+        return buildErrorResponse(
+                objectNotFoundException,
+                HttpStatus.NOT_FOUND,
+                request);
+    }
+
+    @ExceptionHandler(DataBindingViolationException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ResponseEntity<Object> handleDataBindingViolationException(
+            DataBindingViolationException dataBindingViolationException,
+            WebRequest request) {
+        log.error("Failed to save entity with associated data", dataBindingViolationException);
+        return buildErrorResponse(
+                dataBindingViolationException,
+                HttpStatus.CONFLICT,
                 request);
     }
 
