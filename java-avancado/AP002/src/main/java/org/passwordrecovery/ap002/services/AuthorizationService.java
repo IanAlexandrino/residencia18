@@ -18,8 +18,4 @@ public class AuthorizationService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return this.userRepository.findByUsername(username);
     }
-
-    public UserDetails loadUserByEmail(String email) throws EmailNotFoundException {
-        return this.userRepository.findByEmail(email);
-    }
 }

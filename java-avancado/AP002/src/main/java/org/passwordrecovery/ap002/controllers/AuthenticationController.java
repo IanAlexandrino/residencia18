@@ -2,9 +2,9 @@ package org.passwordrecovery.ap002.controllers;
 
 import jakarta.validation.Valid;
 import org.passwordrecovery.ap002.config.TokenService;
-import org.passwordrecovery.ap002.models.user.AuthenticationDTO;
-import org.passwordrecovery.ap002.models.user.LoginResponseDTO;
-import org.passwordrecovery.ap002.models.user.RegisterDTO;
+import org.passwordrecovery.ap002.dto.AuthenticationDTO;
+import org.passwordrecovery.ap002.dto.LoginResponseDTO;
+import org.passwordrecovery.ap002.dto.RegisterDTO;
 import org.passwordrecovery.ap002.models.user.User;
 import org.passwordrecovery.ap002.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
