@@ -42,7 +42,7 @@ public class UserPasswordService {
         PasswordTokenPublicData publicData = readPublicData(rawToken);
 
         if (isExpired(publicData)){
-            throw new RuntimeException("Tkoen expirado!");
+            throw new RuntimeException("Token expirado!");
         }
 
         User user = userRepository.findByEmail(publicData.getEmail())
