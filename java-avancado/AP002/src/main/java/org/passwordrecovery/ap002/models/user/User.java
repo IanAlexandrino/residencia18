@@ -41,11 +41,9 @@ public class User implements UserDetails {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(name = "password", nullable = false)
     @NotBlank(message = "PassWord não pode ser nulo nem vazio!")
-    @Size(min = 8, max = 40, message = "PassWord não pode ter menos de 8 caracteres nem mais de 40!")
     private String password;
 
     @Column(name = "role", nullable = false)
-    @NotBlank(message = "Role não pode ser nulo nem vazio!")
     private UserRole role;
 
     public User(String username, String email, String password, UserRole userRole){
