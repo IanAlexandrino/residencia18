@@ -17,6 +17,7 @@ server.error.include-exception=true
 # Chave Segurança JWT
 api.security.token.secret=${JWT_SECRET:}
 
+# Spring Mail Config
 spring.mail.host=smtp.gmail.com
 spring.mail.port=587
 spring.mail.username=
