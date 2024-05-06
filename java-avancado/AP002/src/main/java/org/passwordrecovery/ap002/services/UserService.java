@@ -1,6 +1,6 @@
 package org.passwordrecovery.ap002.services;
 
-import org.passwordrecovery.ap002.models.User;
+import org.passwordrecovery.ap002.models.user.User;
 import org.passwordrecovery.ap002.repositories.UserRepository;
 import org.passwordrecovery.ap002.services.exceptions.DataBindingViolationException;
 import org.passwordrecovery.ap002.services.exceptions.ObjectNotFoundException;
@@ -21,10 +21,6 @@ public class UserService {
         return user.orElseThrow(() -> new ObjectNotFoundException(
                 "Usuário não encontrado! Id: " + id + ", Tipo: " + User.class.getName()
         ));
-    }
-
-    public User findByEmail(String email){
-        return userRepository.findUserByEmail(email);
     }
 
     @Transactional

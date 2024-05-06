@@ -1,9 +1,11 @@
 package org.passwordrecovery.ap002.controllers;
 
 import jakarta.validation.Valid;
-import org.passwordrecovery.ap002.models.AuthenticationDTO;
-import org.passwordrecovery.ap002.models.RegisterDTO;
-import org.passwordrecovery.ap002.models.User;
+import org.passwordrecovery.ap002.config.TokenService;
+import org.passwordrecovery.ap002.models.user.AuthenticationDTO;
+import org.passwordrecovery.ap002.models.user.LoginResponseDTO;
+import org.passwordrecovery.ap002.models.user.RegisterDTO;
+import org.passwordrecovery.ap002.models.user.User;
 import org.passwordrecovery.ap002.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,12 +27,17 @@ public class AuthenticationController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private TokenService tokenService;
+
     @PostMapping("/login")
-    public ResponseEntity<Void> login(@Valid @RequestBody AuthenticationDTO data){
+    public ResponseEntity<LoginResponseDTO> login(@Valid @RequestBody AuthenticationDTO data){
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.username(), data.password());
         var auth = this.authenticationManager.authenticate(usernamePassword);
 
-        return ResponseEntity.ok().build();
+        var token = tokenService.generateToken((User) auth.getPrincipal());
+
+        return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 
     @PostMapping("/register")

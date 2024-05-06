@@ -1,7 +1,7 @@
 package org.passwordrecovery.ap002.controllers;
 
 import jakarta.validation.Valid;
-import org.passwordrecovery.ap002.models.User;
+import org.passwordrecovery.ap002.models.user.User;
 import org.passwordrecovery.ap002.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

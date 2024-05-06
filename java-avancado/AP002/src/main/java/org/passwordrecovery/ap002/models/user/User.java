@@ -1,4 +1,4 @@
-package org.passwordrecovery.ap002.models;
+package org.passwordrecovery.ap002.models.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
